@@ -15,21 +15,18 @@ const decryptButton = document.getElementById("decryptButton");
 const copyButton = document.getElementById("copyButton");
 const currentDateButton = document.getElementById("currentDate");
 
-
-
+let currentFinalSeed = [];
 
 
 // ===============================
 // LETRAS E NÚMEROS
 // ===============================
 
-
 function letterToNumber(letter){
 
     return letter.charCodeAt(0) - 64;
 
 }
-
 
 
 function numberToLetter(number){
@@ -41,22 +38,13 @@ function numberToLetter(number){
 
 
 
-
-
-
 // ===============================
 // MULTIPLICADOR DA DATA
 // ===============================
 
-
 function getMultiplier(date){
 
-
-    let numbers =
-    date
-    .split("/")
-    .map(Number);
-
+    let numbers = date.split("/").map(Number);
 
 
     if(numbers.length < 2){
@@ -66,11 +54,8 @@ function getMultiplier(date){
     }
 
 
-
     let day = numbers[0];
-
     let month = numbers[1];
-
 
 
     return (day + month) * 2 + 1;
@@ -80,15 +65,9 @@ function getMultiplier(date){
 
 
 
-
-
-
-
-
 // ===============================
 // SEED DA DATA
 // ===============================
-
 
 function generateDateSeed(date){
 
@@ -123,12 +102,16 @@ function generateDateSeed(date){
     for(let i = 0; i < numbers.length; i++){
 
 
-        let current =
-        numbers[i];
+        let current = numbers[i];
 
+
+        // multiplicação circular:
+        // último número × primeiro número
 
         let next =
-        numbers[(i+1) % numbers.length];
+        numbers[
+            (i + 1) % numbers.length
+        ];
 
 
 
@@ -152,7 +135,6 @@ function generateDateSeed(date){
 
         result += multiplied[i];
 
-
     }
 
 
@@ -160,10 +142,6 @@ function generateDateSeed(date){
     return result;
 
 }
-
-
-
-
 
 
 
@@ -173,9 +151,7 @@ function generateDateSeed(date){
 // SEED DA SENHA
 // ===============================
 
-
 function generatePasswordSeed(password){
-
 
 
     password =
@@ -185,15 +161,16 @@ function generatePasswordSeed(password){
 
 
 
-    let result = "";
+    let result = [];
 
 
 
     for(let char of password){
 
 
-        result +=
-        letterToNumber(char);
+        result.push(
+            letterToNumber(char)
+        );
 
 
     }
@@ -208,34 +185,31 @@ function generatePasswordSeed(password){
 
 
 
-
-
-
-
 // ===============================
 // SEED FINAL
 // ===============================
-
 
 function generateFinalSeed(dateSeed,passwordSeed){
 
 
 
-    if(!dateSeed || !passwordSeed){
+    if(!dateSeed || !passwordSeed.length){
 
-        return "";
+        return [];
 
     }
 
 
 
     let data =
-    dateSeed.split("");
+    dateSeed
+    .split("")
+    .map(Number);
 
 
 
     let pass =
-    passwordSeed.split("");
+    passwordSeed;
 
 
 
@@ -247,7 +221,7 @@ function generateFinalSeed(dateSeed,passwordSeed){
 
 
 
-    let result = "";
+    let result = [];
 
 
 
@@ -256,20 +230,22 @@ function generateFinalSeed(dateSeed,passwordSeed){
 
 
         let a =
-        Number(
-            data[i % data.length]
-        );
+        data[
+            i % data.length
+        ];
 
 
 
         let b =
-        Number(
-            pass[i % pass.length]
+        pass[
+            i % pass.length
+        ];
+
+
+
+        result.push(
+            a + b
         );
-
-
-
-        result += a + b;
 
 
     }
@@ -284,17 +260,11 @@ function generateFinalSeed(dateSeed,passwordSeed){
 
 
 
-
-
-
-
 // ===============================
 // ATUALIZAR SEEDS
 // ===============================
 
-
 function updateSeeds(){
-
 
 
     let dateSeed =
@@ -311,17 +281,10 @@ function updateSeeds(){
 
 
 
-    let finalSeed =
+    currentFinalSeed =
     generateFinalSeed(
         dateSeed,
         passwordSeed
-    );
-
-
-
-    let multiplier =
-    getMultiplier(
-        dateInput.value
     );
 
 
@@ -332,23 +295,21 @@ function updateSeeds(){
 
 
     passwordSeedOutput.textContent =
-    passwordSeed || "-";
+    passwordSeed.join("") || "-";
 
 
 
     finalSeedOutput.textContent =
-    finalSeed || "-";
+    currentFinalSeed.join("") || "-";
 
 
 
     multiplierOutput.textContent =
-    multiplier;
+    getMultiplier(
+        dateInput.value
+    );
 
 }
-
-
-
-
 
 
 
@@ -357,7 +318,6 @@ function updateSeeds(){
 // ===============================
 // INPUTS
 // ===============================
-
 
 messageInput.addEventListener(
 "input",
@@ -406,12 +366,9 @@ updateSeeds
 
 
 
-
-
 // ===============================
 // DATA ATUAL
 // ===============================
-
 
 currentDateButton.addEventListener(
 "click",
@@ -424,17 +381,13 @@ currentDateButton.addEventListener(
 
 
     let day =
-    String(
-        today.getDate()
-    )
+    String(today.getDate())
     .padStart(2,"0");
 
 
 
     let month =
-    String(
-        today.getMonth()+1
-    )
+    String(today.getMonth()+1)
     .padStart(2,"0");
 
 
@@ -459,30 +412,16 @@ currentDateButton.addEventListener(
 
 
 
-
-
-
 // ===============================
 // CRIPTOGRAFAR
 // ===============================
 
-
 function encrypt(text,seed,multiplier){
-
-
-
-    let seedNumbers =
-    seed
-    .split("")
-    .map(Number);
-
 
 
     let state = 0;
 
-
     let output = "";
-
 
 
 
@@ -498,8 +437,8 @@ function encrypt(text,seed,multiplier){
 
 
         let key =
-        seedNumbers[
-            i % seedNumbers.length
+        seed[
+            i % seed.length
         ];
 
 
@@ -527,14 +466,6 @@ function encrypt(text,seed,multiplier){
 
 
 
-        if(encrypted <= 0){
-
-            encrypted += 26;
-
-        }
-
-
-
         output +=
         numberToLetter(
             encrypted
@@ -553,32 +484,16 @@ function encrypt(text,seed,multiplier){
 
 
 
-
-
-
-
 // ===============================
 // DESCRIPTOGRAFAR
 // ===============================
 
-
 function decrypt(text,seed,multiplier){
-
-
-
-    let seedNumbers =
-    seed
-    .split("")
-    .map(Number);
-
 
 
     let state = 0;
 
-
     let output = "";
-
-
 
 
 
@@ -594,8 +509,8 @@ function decrypt(text,seed,multiplier){
 
 
         let key =
-        seedNumbers[
-            i % seedNumbers.length
+        seed[
+            i % seed.length
         ];
 
 
@@ -641,29 +556,19 @@ function decrypt(text,seed,multiplier){
 
 
 
-
-
-
-
 // ===============================
 // BOTÕES
 // ===============================
-
 
 encryptButton.addEventListener(
 "click",
 ()=>{
 
 
-    let seed =
-    finalSeedOutput.textContent;
-
-
-
     if(
         messageInput.value === ""
         ||
-        seed === "-"
+        currentFinalSeed.length === 0
     ){
 
         errorOutput.textContent =
@@ -676,10 +581,14 @@ encryptButton.addEventListener(
 
 
 
+    errorOutput.textContent = "";
+
+
+
     resultOutput.textContent =
     encrypt(
         messageInput.value,
-        seed,
+        currentFinalSeed,
         getMultiplier(dateInput.value)
     );
 
@@ -697,15 +606,10 @@ decryptButton.addEventListener(
 ()=>{
 
 
-    let seed =
-    finalSeedOutput.textContent;
-
-
-
     if(
         messageInput.value === ""
         ||
-        seed === "-"
+        currentFinalSeed.length === 0
     ){
 
         errorOutput.textContent =
@@ -718,10 +622,14 @@ decryptButton.addEventListener(
 
 
 
+    errorOutput.textContent = "";
+
+
+
     resultOutput.textContent =
     decrypt(
         messageInput.value,
-        seed,
+        currentFinalSeed,
         getMultiplier(dateInput.value)
     );
 
@@ -733,12 +641,9 @@ decryptButton.addEventListener(
 
 
 
-
-
 // ===============================
 // COPIAR
 // ===============================
-
 
 copyButton.addEventListener(
 "click",
@@ -751,7 +656,6 @@ copyButton.addEventListener(
 
 
 });
-
 
 
 
