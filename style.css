@@ -1,0 +1,524 @@
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    margin: 0;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background: #050b18;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    color: white;
+
+}
+
+
+
+.container {
+
+    width: 100%;
+
+    max-width: 650px;
+
+    padding: 20px;
+
+}
+
+
+
+.card-glow {
+
+    background: #0b1729;
+
+    padding: 30px;
+
+    border-radius: 18px;
+
+    box-shadow:
+    0 0 30px rgba(255,209,102,0.25);
+
+}
+
+
+
+h1 {
+
+    text-align:center;
+
+    color:#ffd166;
+
+    font-size:32px;
+
+}
+
+
+
+.subtitle {
+
+    text-align:center;
+
+    color:#aab7c8;
+
+    margin-bottom:25px;
+
+}
+
+
+
+.input-group-custom {
+
+    margin-bottom:20px;
+
+}
+
+
+
+label {
+
+    display:block;
+
+    margin-bottom:8px;
+
+    color:#ffd166;
+
+    font-weight:bold;
+
+}
+
+
+
+input {
+
+    width:100%;
+
+    padding:12px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:10px;
+
+    background:#152840;
+
+    color:white;
+
+}
+
+
+
+input::placeholder {
+
+    color:#8d9bb0;
+
+}
+
+
+
+input:focus {
+
+    box-shadow:
+
+    0 0 15px rgba(255,209,102,.5);
+
+}
+
+
+
+
+
+.small-btn {
+
+    margin-top:10px;
+
+    padding:8px 15px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#23395d;
+
+    color:white;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+
+
+.small-btn:hover {
+
+    background:#ffd166;
+
+    color:#111;
+
+    box-shadow:
+
+    0 0 15px rgba(255,209,102,.8);
+
+}
+
+
+
+
+
+.seed-box {
+
+    margin-top:25px;
+
+    padding:18px;
+
+    border-radius:12px;
+
+    background:#101e33;
+
+    box-shadow:
+
+    0 0 20px rgba(255,209,102,.2);
+
+}
+
+
+
+.seed-box h3 {
+
+    color:#ffd166;
+
+}
+
+
+
+.seed-item {
+
+    margin-bottom:15px;
+
+}
+
+
+
+.seed-item span {
+
+    color:#aab7c8;
+
+}
+
+
+
+.seed-item strong {
+
+    display:block;
+
+    word-break:break-all;
+
+}
+
+
+
+.final strong {
+
+    color:#ffd166;
+
+}
+
+
+
+
+
+.buttons {
+
+    display:flex;
+
+    gap:15px;
+
+    margin-top:20px;
+
+}
+
+
+
+
+
+.btn-encrypt,
+.btn-decrypt {
+
+
+    flex:1;
+
+    padding:13px;
+
+    border:none;
+
+    border-radius:10px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+
+
+
+
+.btn-encrypt {
+
+    background:#ffd166;
+
+    color:#111;
+
+}
+
+
+
+.btn-decrypt {
+
+    background:#23395d;
+
+    color:white;
+
+}
+
+
+
+
+
+.btn-encrypt:hover {
+
+    background:#ffea8a;
+
+    color:#111;
+
+    box-shadow:
+
+    0 0 20px rgba(255,209,102,.9);
+
+}
+
+
+
+.btn-decrypt:hover {
+
+    background:#ffd166;
+
+    color:#111;
+
+    box-shadow:
+
+    0 0 20px rgba(255,209,102,.9);
+
+}
+
+
+
+
+
+
+
+.result-box {
+
+    position:relative;
+
+    margin-top:20px;
+
+    padding:18px;
+
+    border-radius:12px;
+
+    background:#101e33;
+
+    box-shadow:
+
+    0 0 25px rgba(255,209,102,.25);
+
+}
+
+
+
+.result-box span {
+
+    color:#ffd166;
+
+    font-weight:bold;
+
+}
+
+
+
+
+
+.copy-btn {
+
+    position:absolute;
+
+    right:15px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+
+    width:36px;
+
+    height:36px;
+
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+
+    border:none;
+
+    border-radius:8px;
+
+
+    background:#ffd166;
+
+    color:#111;
+
+    cursor:pointer;
+
+}
+
+
+
+
+
+.copy-btn:hover {
+
+    background:#ffea8a;
+
+    box-shadow:
+
+    0 0 15px rgba(255,209,102,.8);
+
+}
+
+
+
+
+
+
+.result {
+
+    margin-top:15px;
+
+    padding-right:45px;
+
+    word-break:break-word;
+
+}
+
+
+
+
+
+.btn-more {
+
+    display:block;
+
+    margin:20px auto 0;
+
+    padding:10px 30px;
+
+
+    border:none;
+
+    border-radius:10px;
+
+
+    background:#23395d;
+
+    color:white;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+
+
+.btn-more:hover {
+
+    background:#ffd166;
+
+    color:#111;
+
+    box-shadow:
+
+    0 0 20px rgba(255,209,102,.8);
+
+}
+
+
+
+
+
+
+.about {
+
+    margin-top:20px;
+
+    padding:20px;
+
+    border-radius:12px;
+
+    background:#101e33;
+
+    line-height:1.6;
+
+}
+
+
+
+.about h3,
+.about h4 {
+
+    color:#ffd166;
+
+}
+
+
+
+
+
+.error {
+
+    color:#ff6b6b;
+
+}
+
+
+
+
+
+@media(max-width:600px){
+
+
+.buttons {
+
+    flex-direction:column;
+
+}
+
+
+}

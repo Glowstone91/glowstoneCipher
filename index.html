@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Glowstone Cipher</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<main class="container">
+
+<section class="card-glow">
+
+
+<h1>Glowstone Cipher</h1>
+
+<p class="subtitle">
+Cifra experimental baseada em seeds dinâmicas e chaves rotativas.
+</p>
+
+
+
+<div class="input-group-custom">
+
+
+<label>Mensagem</label>
+
+
+<input 
+id="message"
+type="text"
+placeholder="Digite sua mensagem (A-Z)"
+maxlength="500"
+>
+
+
+<span id="messageError" class="error"></span>
+
+
+</div>
+
+
+
+
+
+<div class="row">
+
+
+<div class="col-md-6">
+
+
+<label>Data</label>
+
+
+<input 
+id="date"
+type="text"
+value="06/08/2026"
+placeholder="DD/MM/AAAA"
+>
+
+
+<button id="currentDate" class="small-btn">
+
+Usar data atual
+
+</button>
+
+
+</div>
+
+
+
+
+<div class="col-md-6">
+
+
+<label>Senha semanal</label>
+
+
+<input 
+id="password"
+type="text"
+value="GLOWSTONE"
+placeholder="Digite a senha"
+>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="seed-box">
+
+
+<h3>Processo da Seed</h3>
+
+
+<div class="seed-item">
+
+<span>Seed da data:</span>
+
+<strong id="dateSeed">-</strong>
+
+</div>
+
+
+
+
+<div class="seed-item">
+
+<span>Seed da senha:</span>
+
+<strong id="passwordSeed">-</strong>
+
+</div>
+
+
+
+
+
+<div class="seed-item">
+
+<span>Multiplicador da cifra:</span>
+
+<strong id="multiplier">-</strong>
+
+</div>
+
+
+
+
+
+<div class="seed-item final">
+
+<span>Seed final:</span>
+
+<strong id="finalSeed">-</strong>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="buttons">
+
+
+<button id="encryptButton" class="btn-encrypt">
+
+Criptografar
+
+</button>
+
+
+
+<button id="decryptButton" class="btn-decrypt">
+
+Descriptografar
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="result-box">
+
+
+<span>Resultado</span>
+
+
+<button id="copyButton" class="copy-btn">
+
+
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+
+<path d="M4 1.5A1.5 1.5 0 0 1 5.5 0h6A1.5 1.5 0 0 1 13 1.5v9A1.5 1.5 0 0 1 11.5 12h-6A1.5 1.5 0 0 1 4 10.5v-9z"/>
+
+<path d="M2 4a1 1 0 0 0-1 1v9a2 2 0 0 0 2 2h6a1 1 0 0 0 1-1v-1H3a1 1 0 0 1-1-1V4z"/>
+
+</svg>
+
+
+</button>
+
+
+
+<div id="result" class="result">
+-
+</div>
+
+
+</div>
+
+
+
+
+
+
+<button 
+class="btn-more"
+data-bs-toggle="collapse"
+data-bs-target="#about">
+
+Saiba mais
+
+</button>
+
+
+
+
+
+
+
+<div id="about" class="collapse about">
+
+
+<h3>
+Como funciona a Glowstone Cipher
+</h3>
+
+
+<p>
+
+A Glowstone possui uma seed criada por duas partes:
+
+<br><br>
+
+<strong>Data + Senha semanal</strong>
+
+<br><br>
+
+Além disso, a própria data altera o funcionamento interno da cifra através de um multiplicador dinâmico.
+
+</p>
+
+
+
+
+
+<h4>
+1 - Geração da seed da data
+</h4>
+
+
+<p>
+
+Exemplo:
+
+<br>
+
+06/08/2026
+
+<br><br>
+
+Removendo zeros:
+
+<br>
+
+68226
+
+<br><br>
+
+Multiplicação:
+
+<br>
+
+6×8 = 48
+
+<br>
+
+8×2 = 16
+
+<br>
+
+2×2 = 4
+
+<br>
+
+2×6 = 12
+
+<br>
+
+6×6 = 36
+
+<br><br>
+
+Resultado:
+
+<br>
+
+481641236
+
+<br><br>
+
+Intercalando:
+
+<br>
+
+6 48 8 16 2 4 2 12 6 36
+
+<br><br>
+
+Seed da data:
+
+<br>
+
+64881624212636
+
+</p>
+
+
+
+
+
+
+
+<h4>
+2 - Geração da seed da senha
+</h4>
+
+
+
+<p>
+
+GLOWSTONE:
+
+<br>
+
+G=7
+
+<br>
+
+L=12
+
+<br>
+
+O=15
+
+<br>
+
+W=23
+
+<br>
+
+S=19
+
+<br>
+
+T=20
+
+<br>
+
+O=15
+
+<br>
+
+N=14
+
+<br>
+
+E=5
+
+
+<br><br>
+
+Seed:
+
+<br>
+
+7121523192015145
+
+</p>
+
+
+
+
+
+
+
+
+<h4>
+3 - Multiplicador da cifra
+</h4>
+
+
+<p>
+
+
+O multiplicador não é fixo.
+
+<br><br>
+
+
+Ele é criado pela data:
+
+<br><br>
+
+
+<strong>
+
+(dia + mês) × 2 + 1
+
+</strong>
+
+
+<br><br>
+
+
+Exemplo:
+
+<br>
+
+
+06/08/2026
+
+
+<br><br>
+
+
+(6 + 8) × 2 + 1
+
+<br>
+
+
+= 29
+
+
+<br><br>
+
+
+Nesse dia, a cifra usa o multiplicador 29.
+
+</p>
+
+
+
+
+
+
+
+<h4>
+4 - Seed final
+</h4>
+
+
+<p>
+
+
+A seed da data e a seed da senha são somadas posição por posição.
+
+
+<br><br>
+
+
+Exemplo:
+
+
+<br>
+
+
+6+7 = 13
+
+
+<br>
+
+
+4+1 = 5
+
+
+<br>
+
+
+8+2 = 10
+
+
+<br><br>
+
+
+Os resultados são concatenados formando a seed final.
+
+</p>
+
+
+
+
+
+
+
+<h4>
+5 - Como a mensagem é criptografada
+</h4>
+
+
+
+<p>
+
+
+Cada letra vira um número:
+
+
+<br>
+
+
+A=1, B=2, C=3...
+
+<br><br>
+
+
+A cifra usa um estado interno:
+
+
+<br><br>
+
+
+Estado inicial:
+
+<br>
+
+
+0
+
+
+<br><br>
+
+
+Novo estado:
+
+
+<br>
+
+
+(estado anterior × multiplicador + valor da seed) mod 26
+
+
+<br><br>
+
+
+Depois:
+
+
+<br>
+
+
+nova letra = letra original + estado
+
+
+<br><br>
+
+
+Se passar de 26, volta para o início do alfabeto.
+
+
+<br><br>
+
+
+A seed é repetida caso a mensagem seja maior que ela.
+
+</p>
+
+
+
+
+
+
+<h4>
+6 - Descriptografia
+</h4>
+
+
+
+<p>
+
+
+A descriptografia refaz o mesmo cálculo de estado.
+
+
+<br><br>
+
+
+Depois remove o deslocamento:
+
+
+<br>
+
+
+letra original = letra cifrada - estado
+
+
+<br><br>
+
+
+Como a mesma data e senha geram a mesma configuração, o processo pode ser revertido.
+
+</p>
+
+
+
+
+</div>
+
+
+
+
+
+</section>
+
+
+</main>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="script.js"></script>
+
+
+</body>
+
+
+</html>
