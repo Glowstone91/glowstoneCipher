@@ -389,8 +389,6 @@ You are free to study, modify, and adapt the source code for your own experiment
 
 An encrypted transmission generated using the **Glowstone Cipher** is available in this repository.
 
-The document contains a fully encrypted version of this English README and serves as a practical demonstration of the algorithm.
-
 **Can you decrypt it?**
 
 🔐 **Access the intercepted document:**
