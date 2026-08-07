@@ -385,7 +385,7 @@ You are free to study, modify, and adapt the source code for your own experiment
 
 ---
 
-# Intercepted Transmission
+# Secret Archive
 
 An encrypted transmission generated using the **Glowstone Cipher** is available in this repository.
 
