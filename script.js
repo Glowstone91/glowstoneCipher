@@ -21,7 +21,7 @@ let currentFinalSeed = [];
 // CONJUNTO DE 100 CARACTERES
 // ===============================
 // 26 maiúsculas + 26 minúsculas + 10 números + 18 símbolos + 19 acentuados/ç + 1 espaço = 100
-const CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@$*!?-_/()[]{}ÁÀÃÂáàãâÕÓÔõóôÉÊéêÍíÚúç ";
+const CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@$*!?-_/()[]{}ÁÀÃÂáàãâÕÓÔõóôÉÊéêÍíÚúç' ";
 const MODULO = CHARSET.length; // 100
 
 function charToNumber(char) {
@@ -279,3 +279,19 @@ copyButton.addEventListener("click", () => {
 // Definir data de hoje no carregamento da página
 dateInput.value = getFormattedToday();
 updateSeeds();
+
+
+const seedContent = document.getElementById("seedContent");
+const toggleSeedIcon = document.getElementById("toggleSeedIcon");
+
+// Alterna o ícone quando a área expande
+seedContent.addEventListener("show.bs.collapse", () => {
+    toggleSeedIcon.classList.remove("bi-arrow-down");
+    toggleSeedIcon.classList.add("bi-arrow-up");
+});
+
+// Alterna o ícone quando a área recolhe
+seedContent.addEventListener("hide.bs.collapse", () => {
+    toggleSeedIcon.classList.remove("bi-arrow-up");
+    toggleSeedIcon.classList.add("bi-arrow-down");
+});
