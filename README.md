@@ -387,8 +387,6 @@ Você é livre para estudar, modificar e adaptar o código para seus próprios e
 
 Uma transmissão criptografada utilizando a própria **Cifra de Glowstone** está disponível neste repositório.
 
-O documento contém uma versão completamente criptografada do README em inglês e serve como uma demonstração prática do algoritmo.
-
 **Será que você consegue descriptografá-la?**
 
 🔐 **Arquivo interceptado:**
