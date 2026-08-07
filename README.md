@@ -383,7 +383,7 @@ Você é livre para estudar, modificar e adaptar o código para seus próprios e
 
 ---
 
-# Secret Archive
+# Arquivo Secreto
 
 Uma transmissão criptografada utilizando a própria **Cifra de Glowstone** está disponível neste repositório.
 
