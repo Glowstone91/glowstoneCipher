@@ -1,120 +1,119 @@
-````md
-# Glowstone Cipher
+# Cifra de Glowstone
 
-> Experimental rotating-key and dynamic seed cipher inspired by the Enigma machine from World War II.
+> Cifra experimental de chave rotativa e seeds dinâmicas, inspirada na máquina Enigma da Segunda Guerra Mundial.
 
-## About the Project
+## Sobre o Projeto
 
-The **Glowstone Cipher** is an experimental cryptographic algorithm developed for educational and conceptual purposes.
+A **Cifra de Glowstone** é um algoritmo criptográfico experimental desenvolvido para fins educacionais e conceituais.
 
-The project uses a system of **dynamic seeds**, **rotating states**, and **modular mathematical operations** to create a cipher whose behavior changes according to the selected parameters.
+O projeto utiliza um sistema de **seeds dinâmicas**, **estado rotativo** e **operações matemáticas modulares** para gerar uma cifra que altera seu comportamento conforme os parâmetros utilizados.
 
-Its goal is to recreate an experience similar to historical cryptographic systems, where a message depends not only on a shared key, but also on time-based configurations and predefined rules between operators.
+A proposta é criar uma experiência semelhante aos sistemas históricos de criptografia, onde uma mensagem depende não apenas de uma chave, mas também de configurações temporais e regras compartilhadas entre os operadores.
 
-🔗 **Online Demo:**  
+🔗 **Demonstração online:**  
 https://glowstone91.github.io/glowstoneCipher/
 
-> **Important:** This project should **not** be used to protect real-world information. It was created exclusively for learning, experimentation, and educational purposes.
+> **Importante:** Este projeto não deve ser utilizado para proteger informações reais. Ele foi desenvolvido exclusivamente para estudo e experimentação.
 
 ---
 
-# Demonstration
+# Demonstração
 
-The Glowstone Cipher provides a web interface where you can generate seeds, encrypt messages, and decrypt them using the same parameters.
+A Cifra de Glowstone possui uma interface web onde é possível gerar seeds, criptografar mensagens e descriptografá-las utilizando os mesmos parâmetros.
 
-## Short Message
+## Mensagem curta
 
-Example of a short sentence encrypted using the Glowstone Cipher.
+Exemplo de uma frase criptografada utilizando a Cifra de Glowstone.
 
-![Short message](Image/not_so_long_sentence.png)
-
----
-
-## Long Message
-
-The algorithm also supports larger texts while maintaining its dynamic rotating state throughout the encryption process.
-
-![Long message](Image/really_long_sentence.png)
+![Mensagem curta](Image/not_so_long_sentence.png)
 
 ---
 
-# How the Cipher Works
+## Mensagem longa
 
-The encryption system uses a custom set of **100 characters**, identified by indexes ranging from `0` to `99`.
+O algoritmo também suporta mensagens maiores, mantendo a variação dinâmica do estado interno durante todo o processo.
 
-The encryption process relies on:
-
-- A date-generated seed.
-- A password-generated seed.
-- A dynamic multiplier.
-- An internal state updated after every character.
-- Modular arithmetic using modulo `100`.
+![Mensagem longa](Image/really_long_sentence.png)
 
 ---
 
-# Character Set
+# Funcionamento da Cifra
 
-The system recognizes exactly 100 characters.
+A criptografia utiliza um conjunto personalizado de **100 caracteres**, identificados por índices de `0` a `99`.
 
-## Uppercase Letters
+O processo de cifragem utiliza:
+
+- Uma seed gerada através da data.
+- Uma seed gerada através da senha.
+- Um multiplicador dinâmico.
+- Um estado interno atualizado a cada caractere.
+- Operações matemáticas em módulo `100`.
+
+---
+
+# Conjunto de Caracteres
+
+O sistema reconhece exatamente 100 caracteres:
+
+## Letras maiúsculas
 
 ```
 A-Z
 ```
 
-## Lowercase Letters
+## Letras minúsculas
 
 ```
 a-z
 ```
 
-## Numbers
+## Números
 
 ```
 0-9
 ```
 
-## Symbols
+## Símbolos
 
 ```
 @$*!?-_/()[]{}
 ```
 
-## Accented Characters
+## Caracteres acentuados
 
 ```
 ÁÀÃÂáàãâÕÓÔõóôÉÊéêÍíÚúç
 ```
 
-## Space
+## Espaço
 
 ```
-Index 99
+Índice 99
 ```
 
-Since the space character is also part of the character table, it is encrypted like every other character.
+Como o espaço também participa da cifragem, ele é transformado em outro caractere durante o processo.
 
-As a result, encrypted messages never contain visible spaces.
+Por esse motivo, mensagens criptografadas não possuem espaços visíveis.
 
 ---
 
-# Date Seed Generation
+# Geração da Seed da Data
 
-The selected date is transformed into a numerical seed.
+A data utilizada como parâmetro passa por um processo de transformação.
 
-Example:
+Exemplo:
 
 ```
 06/08/2026
 ```
 
-First, all non-numeric characters and zeros are removed:
+Primeiro, os caracteres não numéricos são removidos:
 
 ```
 [6,8,2,2,6]
 ```
 
-Then, each digit is multiplied by the next one, with the last digit multiplying the first:
+Depois, cada número é multiplicado pelo próximo, sendo que o último multiplica pelo primeiro:
 
 ```
 6 × 8 = 48
@@ -124,29 +123,29 @@ Then, each digit is multiplied by the next one, with the last digit multiplying 
 6 × 6 = 36
 ```
 
-The original digits and multiplication results are then interleaved:
+Os valores originais e os resultados são intercalados:
 
 ```
-Date Seed
+Seed da Data
 
 64881624212636
 ```
 
 ---
 
-# Password Seed Generation
+# Geração da Seed da Senha
 
-Each password character is converted into its index within the character table and then increased by `1`.
+Cada caractere da senha é convertido para seu índice dentro da tabela de caracteres e recebe `+1`.
 
-Example:
+Exemplo:
 
-Password:
+Senha:
 
 ```
 GLOWSTONE
 ```
 
-Conversion:
+Conversão:
 
 ```
 G = 7
@@ -160,61 +159,61 @@ N = 14
 E = 5
 ```
 
-Result:
+Resultado:
 
 ```
-Password Seed
+Seed da Senha
 
 [7,12,15,23,19,20,15,14,5]
 ```
 
 ---
 
-# Dynamic Multiplier
+# Multiplicador Dinâmico
 
-The multiplier controls the variation of the cipher's internal state.
+O multiplicador é responsável pela variação do estado interno da cifra.
 
-It is calculated using:
+Ele utiliza:
 
-- The current date.
-- The password length.
-- The binary representation of the password length.
+- Data atual.
+- Tamanho da senha.
+- Representação binária do tamanho da senha.
 
-Example:
+Exemplo:
 
-Password:
+Senha:
 
 ```
 GLOWSTONE
 ```
 
-Character count:
+Quantidade de caracteres:
 
 ```
 9
 ```
 
-Binary representation:
+Representação binária:
 
 ```
 1001
 ```
 
-Metrics:
+Métricas:
 
-Total number of bits:
+Quantidade total de bits:
 
 ```
 D = 4
 ```
 
-Bits equal to `1`:
+Quantidade de bits com valor `1`:
 
 ```
 U = 2
 ```
 
-Factor:
+Fator:
 
 ```
 F = D × U
@@ -224,15 +223,15 @@ F = 4 × 2
 F = 8
 ```
 
-Date sum:
+Soma da data:
 
 ```
-Day + Month
+Dia + Mês
 
 06 + 08 = 14
 ```
 
-Final multiplier:
+Multiplicador final:
 
 ```
 ((S + F) × 2) + 1
@@ -242,159 +241,156 @@ Final multiplier:
 = 45
 ```
 
-The result is always an odd number, preventing certain mathematical patterns within modulo `100`.
+O resultado sempre será um número ímpar, evitando determinados padrões matemáticos dentro do módulo `100`.
 
 ---
 
-# Final Seed
+# Seed Final
 
-The Final Seed combines:
+A Seed Final é criada combinando:
 
-- The Date Seed.
-- The Password Seed.
+- Seed da Data.
+- Seed da Senha.
 
-The combination is performed by adding both seeds element by element.
+A combinação ocorre através da soma elemento por elemento.
 
-If one seed is shorter than the other, its values are repeated until the required length is reached.
+Caso uma das seeds seja menor, seus valores são repetidos até completar o tamanho necessário.
 
 ---
 
-# Rotating Encryption Process
+# Processo de Criptografia Rotativa
 
-For each character in the plaintext message:
+Para cada caractere da mensagem:
 
-## State Update
-
-```
-NewState =
-(CurrentState × Multiplier + SeedKey) mod 100
-```
-
-## Character Encryption
+## Atualização do Estado
 
 ```
-EncryptedCharacter =
-(OriginalPosition + NewState) mod 100
+EstadoNovo =
+(EstadoAtual × Multiplicador + ChaveSeed) mod 100
 ```
 
-The internal state changes after every encrypted character, meaning every position in the message uses a different shift value.
-````
-````md
+## Conversão do Caractere
+
+```
+CaractereCifrado =
+(PosiçãoOriginal + EstadoNovo) mod 100
+```
+
+O estado é alterado após cada caractere, fazendo com que cada posição da mensagem utilize um deslocamento diferente.
 ---
 
-# Technologies Used
+# Tecnologias Utilizadas
 
 - **HTML5**
-  - Application structure.
+  - Estrutura da aplicação.
 
 - **CSS3**
-  - User interface and styling.
+  - Interface e estilização.
 
 - **JavaScript (ES6+)**
-  - Encryption algorithm implementation.
+  - Implementação do algoritmo de criptografia.
 
 - **Bootstrap 5**
-  - Responsive UI components.
+  - Componentes responsivos.
 
 - **Bootstrap Icons**
-  - Interface icons and visual elements.
+  - Elementos visuais da interface.
 
 ---
 
-# Fictional Lore and Background
+# Lore e Contexto Fictício
 
-The Glowstone Cipher was designed around a fictional tactical communication scenario inspired by historical encryption systems such as the Enigma machine.
+A Cifra de Glowstone foi concebida dentro de um cenário fictício de comunicação tática, inspirado nos métodos utilizados por sistemas históricos de criptografia, como a máquina Enigma.
 
-Although the encryption algorithm itself is entirely original, its setting recreates the idea of operators exchanging encrypted messages using shared rules and secret parameters.
+Embora o algoritmo seja totalmente autoral, a ambientação busca reproduzir a ideia de mensagens transmitidas entre operadores que compartilham regras e parâmetros secretos.
 
-## The Zero Point
+## O Marco Zero
 
-Before an operation begins, every operator agrees on a secret starting date.
+Antes do início de uma operação, todos os operadores definem uma data inicial secreta.
 
-Example:
+Exemplo:
 
 ```
 09/02/1378
 ```
 
-Each new day, every operator advances this date by one day, automatically changing the cipher parameters.
+A cada novo dia, todos os operadores avançam essa data em um dia, alterando automaticamente os parâmetros utilizados pela cifra.
 
 ---
 
-## The Secret Book
+## O Livro Secreto
 
-Every operator carries the same physical book, which serves as the source for generating the password.
+Todos os operadores possuem o mesmo livro físico, utilizado como fonte para gerar a senha.
 
-The password may be obtained through previously agreed rules, such as:
+A senha pode ser obtida através de regras previamente combinadas, como:
 
-- Extracting proper names from a specific chapter.
-- Selecting words in a predefined order.
-- Applying a custom extraction method known only by the operators.
+- Extrair nomes próprios de um capítulo específico.
+- Utilizar palavras em determinada ordem.
+- Aplicar métodos definidos entre os participantes.
 
-Since the password is never transmitted directly, only those who possess the book and understand the extraction method can reproduce it.
-
----
-
-## Decoy Objects
-
-To avoid drawing attention to the book if multiple agents carry the same edition, every operator also carries unusual objects.
-
-Examples include:
-
-- A clock without hands.
-- An engraved stone.
-- A pair of mismatched socks.
-
-These items exist solely as decoys, distracting investigators from the real object of interest: the book.
+Como a senha nunca é enviada diretamente, apenas quem possui o livro e conhece o método de extração consegue reproduzi-la.
 
 ---
 
-## Inspiration from Enigma
+## Objetos de Despiste
 
-Just as the Enigma machine relied on daily shared configurations, the Glowstone Cipher changes its behavior whenever its parameters change.
+Para evitar que o livro desperte suspeitas caso vários agentes carreguem a mesma edição, cada operador também leva consigo objetos aparentemente aleatórios.
 
-Each new day represents a completely new configuration of the system, requiring every operator to use the exact same parameters to maintain communication.
+Exemplos:
 
----
+- Um relógio sem ponteiros.
+- Uma pedra gravada.
+- Um par de meias diferentes.
 
-# Security Disclaimer
-
-The Glowstone Cipher is an **experimental** cryptographic project.
-
-It has **not** undergone professional cryptanalysis and may contain:
-
-- Statistical patterns.
-- Mathematical weaknesses.
-- Undiscovered vulnerabilities.
-
-**Do not use this cipher to protect:**
-
-- Real passwords.
-- Financial information.
-- Personal or confidential data.
-- Production systems.
-
-This project was created exclusively for educational purposes, experimentation, and the study of cryptographic concepts.
+Esses objetos funcionam apenas como distração, desviando a atenção do verdadeiro elemento importante: o livro.
 
 ---
 
-# License
+## Inspiração na Enigma
 
-This project is licensed under the **MIT License**.
+Assim como a máquina Enigma utilizava configurações diárias compartilhadas entre seus operadores, a Cifra de Glowstone altera completamente seu comportamento sempre que seus parâmetros mudam.
 
-You are free to study, modify, and adapt the source code for your own experiments.
+Cada novo dia representa uma nova configuração do sistema, exigindo que todos os participantes utilizem exatamente os mesmos dados para que a comunicação continue funcionando.
 
 ---
 
-# Intercepted Transmission
+# Aviso de Segurança
 
-An encrypted transmission generated using the **Glowstone Cipher** is available in this repository.
+A Cifra de Glowstone é um projeto **experimental**.
 
-The document contains a fully encrypted version of this English README and serves as a practical demonstration of the algorithm.
+Ela não passou por análises profissionais de criptografia e pode conter:
 
-**Can you decrypt it?**
+- Padrões estatísticos.
+- Vulnerabilidades matemáticas.
+- Falhas ainda não identificadas.
 
-🔐 **Access the intercepted document:**
+**Não utilize esta cifra para proteger:**
+
+- Senhas reais.
+- Informações financeiras.
+- Dados pessoais.
+- Sistemas em produção.
+
+Este projeto foi desenvolvido exclusivamente para fins educacionais, estudo e experimentação.
+
+---
+
+# Licença
+
+Este projeto está licenciado sob a **Licença MIT**.
+
+Você é livre para estudar, modificar e adaptar o código para seus próprios experimentos.
+
+---
+
+# Secret Archive
+
+Uma transmissão criptografada utilizando a própria **Cifra de Glowstone** está disponível neste repositório.
+
+O documento contém uma versão completamente criptografada do README em inglês e serve como uma demonstração prática do algoritmo.
+
+**Será que você consegue descriptografá-la?**
+
+🔐 **Arquivo interceptado:**
 
 ➡️ **[README_INTERCEPTED_ENCRYPTED.md](README_INTERCEPTED_ENCRYPTED.md)**
-````
