@@ -25,7 +25,7 @@ A Cifra de Glowstone possui uma interface web onde é possível gerar seeds, cri
 
 Exemplo de uma frase criptografada utilizando a Cifra de Glowstone.
 
-![Mensagem curta](image/not_so_long_sentence.png)
+![Mensagem curta](Image/not_so_long_sentence.png)
 
 ---
 
@@ -33,7 +33,7 @@ Exemplo de uma frase criptografada utilizando a Cifra de Glowstone.
 
 O algoritmo também suporta mensagens maiores, mantendo a variação dinâmica do estado interno durante todo o processo.
 
-![Mensagem longa](image/really_long_sentence.png)
+![Mensagem longa](Image/really_long_sentence.png)
 
 ---
 
