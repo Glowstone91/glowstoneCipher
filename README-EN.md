@@ -278,7 +278,6 @@ EncryptedCharacter =
 ```
 
 The internal state changes after every encrypted character, meaning every position in the message uses a different shift value.
-````
 
 ---
 
