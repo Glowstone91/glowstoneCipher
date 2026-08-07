@@ -1,5 +1,4 @@
-==================================================
-              CLASSIFIED DOCUMENT
+# CLASSIFIED DOCUMENT
 
 OPERATION GLOWSTONE
 
